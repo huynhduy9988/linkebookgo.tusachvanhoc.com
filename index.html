@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title></title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 2em;
+      text-align: center;
+    }
+  </style>
+  <script>
+    const path = window.location.pathname;
+    const fallbackUrl = `https://tusachvanhoc.com${path}`;
+    const encodedFallback = encodeURIComponent(fallbackUrl);
+    const androidIntent = `intent://${window.location.host}${path}` +
+      `#Intent;scheme=https;package=com.ddpanda.pomegranate;` +
+      `S.browser_fallback_url=${encodedFallback};end`;
+
+    const iosUniversalLink = `https://linkebookgo.tusachvanhoc.com${path}`;
+    const iosCustomScheme = `pomegranate://${path.replace(/^\/+/, '')}`; // e.g. mango://books/123
+
+    const ua = navigator.userAgent || navigator.vendor || window.opera;
+    const isAndroid = /android/i.test(ua);
+    const isIOS = /iPad|iPhone|iPod/.test(ua);
+
+    if (isAndroid) {
+      window.location.href = androidIntent;
+    } else if (isIOS) {
+      // Ưu tiên dùng Universal Link, nếu app bạn đã đăng ký domain trong apple-app-site-association
+      window.location.href = iosUniversalLink;
+
+      // Nếu chưa hỗ trợ universal link thì sau 1.5s thử mở custom scheme
+      setTimeout(() => {
+        window.location.href = iosCustomScheme;
+      }, 1500);
+    } else {
+      // Desktop hoặc trình duyệt không hỗ trợ
+      window.location.href = fallbackUrl;
+    }
+
+    // Dự phòng nếu app không mở sau 2.5s → về web
+    setTimeout(() => {
+      window.location.href = fallbackUrl;
+    }, 2500);
+  </script>
+</head>
+<body>
+  <p>⏳ Đang chuyển hướng đến ứng dụng...</p>
+  <p>Nếu không được, <a id="manualLink" href="#">nhấn vào đây</a>.</p>
+
+  <script>
+    document.getElementById('manualLink').href = fallbackUrl;
+  </script>
+</body>
+</html>

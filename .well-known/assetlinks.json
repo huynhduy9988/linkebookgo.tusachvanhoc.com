@@ -1,0 +1,13 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.ddpanda.pomegranate",
+      "sha256_cert_fingerprints": [
+        "1F:6B:59:AF:39:B0:F7:8A:DC:95:26:41:CC:35:AC:C0:36:C2:0A:AE:94:9C:E3:D5:22:DC:53:DC:54:DF:C8:46",
+        "B4:A1:AD:8B:A8:7C:D4:72:8B:85:34:7D:9D:5A:F6:2D:FB:90:0C:98:8C:63:3B:AB:50:A3:4E:13:36:AF:1C:B9"
+      ]
+    }
+  }
+]
